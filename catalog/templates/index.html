@@ -1,0 +1,69 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Електронна бібліотека села Супранівки Підволочиського р-ну</h1>
+<hr>
+<p>Матеріали сайту призначено не тільки читачам-дітям, але й батькам, педагогам, бібліотечним фахівцям.
+
+Тут Ви знайдете актуальну інформацію про життя бібліотеки, дізнаєтесь про найкращі сучасні видання.
+
+Ми сподіваємось, що Ваша подорож сторінками нашого сайту буде цікавою і корисною! </p>
+
+
+<div class="anons">
+    <center><h2>Нові книги у нашій бібліотеці:</h2></center>
+</div>
+
+{% if book_anons %}
+<ul class="book-anons">
+    {% for anons in book_anons %}
+        {% if anons.is_anonsed %}
+        <li>
+            <div class="anons-content">
+            <div class="data-update-anons">{{ anons.genre.all|join:", " }},
+            <span style="float: right">Дата оновлення: {{ anons.time_update }}</span> <br>
+            <strong>{{ anons.title }}</strong><br></div>
+            {% if anons.photo %}
+            <p><img class="anons-img" src="{{ anons.photo.url }}">
+            {% endif %}
+            <strong>Автор: </strong> {{ anons.author}}<br>
+            <strong>Назва твору: </strong>{{ anons.title }}<br>
+            <strong>Мова твору: </strong> {{ anons.language }}<br>
+            <strong>Рік написання: </strong> {{ anons.year_of_creation }}<br>
+            {{ anons.summary | linebreaks | truncatewords:100}}</p>
+            <form action="{{ anons.get_absolute_url }}">
+                <button class="anons-button">Читати далі</button>
+            </form>
+            <hr class="dotter-line">
+            </div>
+            <hr>
+        </li>
+        {% endif %}
+    {% endfor %}
+
+ </ul>
+{% else %}
+  <p>Книг немає у базі даних.</p>
+{% endif %}
+
+
+<!--
+<div class="dycont">
+<h2>Динамічний контент</h2>
+
+<p>Бібліотека містить такі записи:</p>
+<ul>
+<li><strong>Кількість книг:</strong> {{ num_books }}</li>
+<li><strong>Кількість копій:</strong> {{ num_instances }}</li>
+<li><strong>Кількість доступних копій:</strong> {{ num_instances_available }}</li>
+<li><strong>Кількість авторів:</strong> {{ num_authors }}</li>
+</ul>
+
+
+<p>Ви відвідали сайт {{ num_visits }} раз.</p>
+</div>-->
+
+
+
+{% endblock %}

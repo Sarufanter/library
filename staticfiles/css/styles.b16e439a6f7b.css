@@ -1,0 +1,72 @@
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+ .col-sm-2 {
+        height: 100%; /* Full-height: remove this if you want "auto" height */
+        width: 20%; /* Set the width of the sidebar */
+        position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: #111; /* Black */
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 20px;
+        line-height: 120%;
+  }
+  .col-sm-2 a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 22px;
+        color: #818181;
+        display: block;
+  }
+
+      /* When you mouse over the navigation links, change their color */
+  .col-sm-2 a:hover {
+        color: #f1f1f1;
+  }
+
+.main {
+        /*margin-left: 350px;
+        margin-top: 50px*/
+        padding: 50px 0px 300px 350px;
+        color: black;
+        /*background-color:gainsboro;*/
+
+}
+
+@media screen and (max-height: 450px) {
+    .col-sm-2 {padding-top: 15px;}
+    .col-sm-2 a {font-size: 18px;}
+}
+
+
+
+.login{
+    padding: 50px;
+    background: #ccc;
+    position: fixed; top: 50%; left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.dycont{
+    color: #818181;
+    padding-top: 35%;
+    font-size: 13px;
+}
+.dycont p{
+    color: #818181;
+    font-size: 13px;
+}
+.displayed{
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+ul.author-list li{
+    display:inline-block;
+}

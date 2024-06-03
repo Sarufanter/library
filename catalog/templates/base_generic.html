@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  {% block title %}<title>Бібліотека</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+  
+</head>
+<body class="body-css">
+    <div class="main">
+        <input type="checkbox" id="side-checkbox" />
+<div class="side-panel">
+    <label class="side-button-2" for="side-checkbox">+</label>
+    <div class="side-title"><center>Панель меню:</center></div>
+
+    {% block sidebar %}
+    {% load static %}
+    <a href="{% url 'index' %}"><img class="displayed" src="{% static "images/flag.png" %}" alt="My image" width="100%" height="40px"></a>
+    <ul class="sidebar-nav">
+        <li><a href="{% url 'calendar' %}">Календар</a></li>
+        <li><a href="{% url 'index' %}">Електронна біблотека</a></li>
+        <li><a href="{% url 'books' %}">Перелік книг</a></li>
+        <li><a href="{% url 'authors' %}">Перелік авторів</a></li>
+    </ul>
+
+    <ul class="sidebar-nav">
+        {% if user.is_authenticated %}
+            <li>Користувач: {{ user.get_username }}</li>
+            <li><a href="{% url 'my-borrowed' %}">Книги, взяті на прокат</a></li>
+            <li><a href="{% url 'logout'%}?next={{request.path}}">Вийти</a></li>
+        {% else %}
+            <li><a href="{% url 'login'%}?next={{request.path}}">Увійти</a></li>
+        {% endif %}
+        </ul>
+
+        {% if user.is_superuser %}
+        <hr />
+        <ul class="sidebar-nav">
+            <li>Службовий розділ(для працівників)</li>
+        {% if perms.catalog.can_mark_returned %}
+            <li><a href="{% url 'all-borrowed' %}">Глобальні книги, взяті на прокат</a></li>
+        {% endif %}
+        </ul>
+        {% endif %}
+    {% endblock %}
+
+</div>
+<div class="side-button-1-wr">
+    <label class="side-button-1" for="side-checkbox">
+        <center><div class="side-b side-open">Відкрити меню</div></center>
+        <center><div class="side-b side-close">Закрити меню</div></center>
+    </label>
+</div>
+
+
+        <div class="content-main ">
+  {% block content %}{% endblock %}
+</div>
+
+</div>
+</div>
+</div>
+<!--<div class="space"></div>-->
+                {% block pagination %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">
+                        previous</a>
+                {% endif %}
+                <span class="page-current">
+                    page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+  {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+<h1><center>Посівний календар</center></h1>
+<div class="clearfix">
+	<a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}"> Минулий місяць </a>
+	<a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"> Наступний місяць </a>
+	{% if user.is_superuser %}
+	<a class="btn btn-info right" href="{% url 'event_new' %}"> Новий запис </a>
+	{% endif %}
+</div>
+
+{{ calendar }}
+{% endblock %}

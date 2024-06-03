@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1><center>Книги</center></h1>
+    {% if book_list %}
+
+        {% for book in book_list %}
+            <div class="book-list-div">
+            {% if book.photo %}
+            <a href="{{ book.get_absolute_url }}">
+            <img class="book-list-img" src="{{ book.photo.url }}">
+            {% endif %}
+            {{ book.title }}</a>
+            </div>
+        {% endfor %}
+
+
+
+    {% else %}
+      <p>There are no books in the library.</p>
+    {% endif %}       
+{% endblock %}
+

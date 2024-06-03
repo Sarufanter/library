@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Книги, які потрібно повернути:</h1>
+
+    {% if bookinstance_list %}
+    <div class="bookinst">
+
+      {% for bookinst in bookinstance_list %}
+      <div class="{% if bookinst.is_overdue %}text-danger{% endif %}">
+        &#10051;<a href="{% url 'book-detail' bookinst.book.pk %}">{{bookinst.book.title}}</a> (повернути до: {{ bookinst.due_back }})
+      <hr></div>
+      {% endfor %}
+    </div>
+
+    {% else %}
+      <p>There are no books borrowed.</p>
+    {% endif %}
+
+{% endblock %}
+

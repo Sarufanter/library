@@ -1,0 +1,36 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1><center>Автори</center></h1>
+
+{% if author_list %}
+<ul class="book-anons">
+  {% for author in author_list %}
+    <li>
+      <div class="author-list-div">
+      {% if author.photo %}
+
+        <a href="{{ author.get_absolute_url }}"><img src="{{ author.photo.url }}" class="author-list-img"></a>
+      {% endif %}
+      <p><center><a href="{{ author.get_absolute_url }}"><strong>{{ author }}</strong></a></center>
+      <!--Рік народження: {{author.date_of_birth}} <br> {% if author.date_of_death %}Дата смерті: {{author.date_of_death}}{% endif %}-->
+      {{ author.summary_author | linebreaks | truncatewords:39}}
+      <form action="{{ author.get_absolute_url }}">
+        <button class="anons-button">Докладніше</button>
+      </form>
+      </p>
+
+
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p>There are no authors available.</p>
+{% endif %}
+        
+        
+        
+{% endblock %}
+
